@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 android {
-    compileSdkVersion 25
+    compileSdkVersion 19
     buildToolsVersion '27.0.3'
 
     defaultConfig {
         applicationId "edu.buffalo.cse.cse486586.simplemessenger"
         minSdkVersion 19
-        targetSdkVersion 22
+        targetSdkVersion 19
     }
 
     buildTypes {
