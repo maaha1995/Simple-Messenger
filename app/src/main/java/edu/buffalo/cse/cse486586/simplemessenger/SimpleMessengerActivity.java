@@ -1,7 +1,10 @@
 package edu.buffalo.cse.cse486586.simplemessenger;
 
+import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -151,11 +154,24 @@ public class SimpleMessengerActivity extends Activity {
         @Override
         protected Void doInBackground(ServerSocket... sockets) {
             ServerSocket serverSocket = sockets[0];
-            
-            /*
-             * TODO: Fill in your server code that receives messages and passes them
-             * to onProgressUpdate().
-             */
+
+            try {
+                while (true) {
+                    Socket socket = serverSocket.accept();
+                    Log.e("Server", "Received");
+
+                    BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                    String message = in.readLine();
+                    Log.e("T", message);
+                    in.close();
+                    socket.close();
+                    publishProgress(message);
+                    Log.e("Reached", "server_socket_close");
+                }
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
             return null;
         }
 
@@ -213,9 +229,11 @@ public class SimpleMessengerActivity extends Activity {
                         Integer.parseInt(remotePort));
                 
                 String msgToSend = msgs[0];
-                /*
-                 * TODO: Fill in your client code that sends out a message.
-                 */
+                PrintWriter out =
+                        new PrintWriter(socket.getOutputStream(), true);
+                out.write(msgToSend);
+                out.flush();
+                out.close();
                 socket.close();
             } catch (UnknownHostException e) {
                 Log.e(TAG, "ClientTask UnknownHostException");
