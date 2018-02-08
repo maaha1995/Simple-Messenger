@@ -163,10 +163,11 @@ public class SimpleMessengerActivity extends Activity {
                     BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                     String message = in.readLine();
                     Log.e("T", message);
+
                     in.close();
                     socket.close();
                     publishProgress(message);
-                    Log.e("Reached", "server_socket_close");
+                    Log.e("Reached", "socket_close");
                 }
             }
             catch (IOException e) {
@@ -234,6 +235,8 @@ public class SimpleMessengerActivity extends Activity {
                 out.write(msgToSend);
                 out.flush();
                 out.close();
+
+
                 socket.close();
             } catch (UnknownHostException e) {
                 Log.e(TAG, "ClientTask UnknownHostException");
