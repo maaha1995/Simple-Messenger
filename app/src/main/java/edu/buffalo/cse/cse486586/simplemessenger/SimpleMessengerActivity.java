@@ -237,7 +237,7 @@ public class SimpleMessengerActivity extends Activity {
                 out.close();
 
 
-                socket.close();
+                //socket.close();
             } catch (UnknownHostException e) {
                 Log.e(TAG, "ClientTask UnknownHostException");
             } catch (IOException e) {
